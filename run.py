@@ -1,3 +1,4 @@
+import os
 import gspread
 from google.oauth2.service_account import Credentials
 #from pprint import pprint
@@ -8,7 +9,15 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
     ]
 
-CREDS = Credentials.from_service_account_file('./controllers/creds.json')
+
+CREDS = None
+if os.environ.get('CREDS'):
+    CREDS = Credentials.from_service_account_info(json.loads(os.environ.get('CREDS')))
+else:
+    CREDS = Credentials.from_service_account_file('./controllers/creds.json')
+
+
+# CREDS = Credentials.from_service_account_file('./controllers/creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('Love_sandwiches')
@@ -173,8 +182,3 @@ def main():
 print("Welcome to Love Sandwiches Data Automation")
 main()
 
-creds = None
-if os.environ.get('CREDS'):
-    creds = Credentials.from_service_account_info(json.loads(os.environ.get('CREDS')))
-else:
-    creds = Credentials.from_service_account_file('./controllers/creds.json')
