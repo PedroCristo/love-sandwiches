@@ -35,6 +35,7 @@ def get_sales_data():
     while True:
         print("Please enter sales data from the last market.")
         print("Data should be six numbers, separated by commas.")
+        print("Cheese Ham - Tom Moz - Chiken Salad - Egg Salad - Hummus Veg - Ham Egg")
         print("Example: 10,20,30,40,50,60\n")
 
         data_str = input("Enter your data here:\n")
